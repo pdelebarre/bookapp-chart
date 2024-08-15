@@ -15,9 +15,10 @@ kind: Service
 metadata:
   name: bookappbackend
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - port: {{ .Values.bookappbackend.localPort }}
       targetPort: {{ .Values.bookappbackend.dockerPort }}
+      nodePort: 30068  # Explicitly set a NodePort within the allowed range (30000-32767)
   selector:
     app: bookappbackend

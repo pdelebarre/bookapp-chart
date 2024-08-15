@@ -56,6 +56,12 @@ spec:
                 }
           ports:
             - containerPort: {{ .Values.bookappbackend.dockerPort }}
+          env:
+            - name: SPRING_APPLICATION_JSON
+              value: >
+                {
+                  "spring.devtools.add-properties": "{{ .Values.spring.devtools.add-properties }}"
+                }
           volumeMounts:
             - name: m2-cache
               mountPath: /root/.m2

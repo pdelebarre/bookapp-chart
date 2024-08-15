@@ -14,3 +14,8 @@ bookappbackend:
 volumes:
   db:
     enabled: true
+    
+spring:
+  devtools:
+    add-properties: false
+
