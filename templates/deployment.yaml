@@ -58,7 +58,7 @@ spec:
             - containerPort: {{ .Values.bookappbackend.dockerPort }}
           env:
             - name: SPRING_APPLICATION_JSON
-              value: >
+              value:
                 {
                   "spring.devtools.add-properties": "{{ .Values.spring.devtools.add-properties }}"
                 }
