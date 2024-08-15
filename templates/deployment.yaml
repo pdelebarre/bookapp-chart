@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: "{{ .Values.mongodb.image }}"
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "{{ .Values.mongodb.username }}"
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: "{{ .Values.mongodb.password }}"
+          ports:
+            - containerPort: {{ .Values.mongodb.dockerPort }}
+          volumeMounts:
+            - name: db-storage
+              mountPath: /data/db
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: mongodb-pvc
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookappbackend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookappbackend
+  template:
+    metadata:
+      labels:
+        app: bookappbackend
+    spec:
+      containers:
+        - name: bookappbackend
+          image: "{{ .Values.bookappbackend.image }}"
+          env:
+            - name: SPRING_APPLICATION_JSON
+              value: |
+                {
+                  "spring.data.mongodb.uri" : "mongodb://{{ .Values.mongodb.username }}:{{ .Values.mongodb.password }}@mongodb:{{ .Values.mongodb.localPort }}/{{ .Values.mongodb.database }}?authSource=admin"
+                }
+          ports:
+            - containerPort: {{ .Values.bookappbackend.dockerPort }}
+          volumeMounts:
+            - name: m2-cache
+              mountPath: /root/.m2
+      volumes:
+        - name: m2-cache
+          emptyDir: {}

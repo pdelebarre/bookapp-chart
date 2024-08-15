@@ -1,0 +1,16 @@
+mongodb:
+  image: mongo:latest
+  username: root
+  password: 123456a
+  database: lib_db
+  localPort: 7017
+  dockerPort: 27017
+
+bookappbackend:
+  image: pdelebarre/bookappbackend:latest
+  localPort: 6868
+  dockerPort: 8080
+
+volumes:
+  db:
+    enabled: true
