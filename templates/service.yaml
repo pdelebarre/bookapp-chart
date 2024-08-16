@@ -15,7 +15,7 @@ kind: Service
 metadata:
   name: bookappbackend
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: {{ .Values.bookappbackend.localPort }}
       targetPort: {{ .Values.bookappbackend.dockerPort }}

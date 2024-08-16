@@ -8,8 +8,8 @@ mongodb:
 
 bookappbackend:
   image: pdelebarre/bookappbackend:latest
-  localPort: 6868
-  dockerPort: 8080
+  localPort: 8080
+  dockerPort: 6868
 
 volumes:
   db:
