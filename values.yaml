@@ -12,9 +12,9 @@ bookappbackend:
   dockerPort: 6868
 
 bookappfrontend:
-  image: pdelebarre/bookappbackend:latest
-  localPort: 8090
-  dockerPort: 6868
+  image: pdelebarre/book-app-frontend:latest
+  localPort: 3000
+  dockerPort: 80
 
 volumes:
   db:
