@@ -11,6 +11,11 @@ bookappbackend:
   localPort: 8080
   dockerPort: 6868
 
+bookappfrontend:
+  image: pdelebarre/bookappbackend:latest
+  localPort: 8090
+  dockerPort: 6868
+
 volumes:
   db:
     enabled: true
